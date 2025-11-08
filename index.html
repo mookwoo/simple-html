@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Web Development Learning Hub</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    
+    html {
+      scroll-behavior: smooth;
+    }
+    
+    body { 
+      margin: 0; 
+      min-height: 100vh; 
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #4facfe 75%, #00f2fe 100%);
+      background-size: 400% 400%;
+      animation: gradient 15s ease infinite;
+      overflow-x: hidden;
+      position: relative;
+    }
+    
+    @keyframes gradient {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    
+    body::before {
+      content: '';
+      position: absolute;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
+      border-radius: 50%;
+      top: -250px;
+      right: -250px;
+      animation: float 20s ease-in-out infinite;
+    }
+    
+    body::after {
+      content: '';
+      position: absolute;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 70%);
+      border-radius: 50%;
+      bottom: -200px;
+      left: -200px;
+      animation: float 25s ease-in-out infinite reverse;
+    }
+    
+    @keyframes float {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(50px, 50px) scale(1.1); }
+    }
+    
+    .container {
+      max-width: 1200px;
+      width: 100%;
+      position: relative;
+      z-index: 1;
+    }
+    
+    h1 {
+      font-size: clamp(2.5rem, 8vw, 6rem);
+      font-weight: 800;
+      letter-spacing: 0.02em;
+      margin: 0 0 2rem 0;
+      padding: 3rem 4rem;
+      position: relative;
+      text-align: center;
+      
+      /* Liquid glass effect */
+      background: rgba(255, 255, 255, 0.1);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      backdrop-filter: blur(20px) saturate(180%);
+      border-radius: 2rem;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      box-shadow: 
+        0 8px 32px 0 rgba(0, 0, 0, 0.1),
+        inset 0 1px 1px 0 rgba(255, 255, 255, 0.5),
+        0 20px 60px rgba(0, 0, 0, 0.15);
+      
+      color: white;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+      
+      animation: glassShimmer 3s ease-in-out infinite;
+      transition: all 0.3s ease;
+      overflow: hidden;
+    }
+    
+    /* Noise texture overlay */
+    h1::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background-image: 
+        url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+      opacity: 0.6;
+      animation: refract 8s linear infinite;
+      pointer-events: none;
+      mix-blend-mode: overlay;
+    }
+    
+    h1::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: 
+        radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.15) 0%, transparent 30%),
+        radial-gradient(circle at 80% 70%, rgba(255, 255, 255, 0.1) 0%, transparent 25%),
+        radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.05) 0%, transparent 40%);
+      border-radius: 2rem;
+      animation: refractPulse 4s ease-in-out infinite;
+      pointer-events: none;
+      mix-blend-mode: overlay;
+    }
+    
+    @keyframes refract {
+      0% { transform: translateX(-50%) translateY(-50%) rotate(0deg); }
+      100% { transform: translateX(50%) translateY(50%) rotate(360deg); }
+    }
+    
+    @keyframes refractPulse {
+      0%, 100% { opacity: 0.6; }
+      50% { opacity: 1; }
+    }
+    
+    h1:hover {
+      transform: translateY(-5px);
+      box-shadow: 
+        0 12px 40px 0 rgba(0, 0, 0, 0.15),
+        inset 0 1px 1px 0 rgba(255, 255, 255, 0.6),
+        0 30px 80px rgba(0, 0, 0, 0.2);
+      background: rgba(255, 255, 255, 0.15);
+    }
+    
+    @keyframes glassShimmer {
+      0%, 100% { border-color: rgba(255, 255, 255, 0.3); }
+      50% { border-color: rgba(255, 255, 255, 0.5); }
+    }
+
+    .subtitle {
+      text-align: center;
+      font-size: clamp(1rem, 3vw, 1.5rem);
+      color: white;
+      margin-bottom: 3rem;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+      font-weight: 300;
+      letter-spacing: 0.05em;
+    }
+    
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      margin-bottom: 3rem;
+    }
+    
+    .feature-card {
+      background: rgba(255, 255, 255, 0.08);
+      -webkit-backdrop-filter: blur(15px) saturate(180%);
+      backdrop-filter: blur(15px) saturate(180%);
+      border-radius: 1.5rem;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      padding: 2rem;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .feature-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+      transition: left 0.5s ease;
+    }
+    
+    .feature-card:hover::before {
+      left: 100%;
+    }
+    
+    .feature-card:hover {
+      transform: translateY(-10px) scale(1.02);
+      box-shadow: 
+        0 15px 50px rgba(0, 0, 0, 0.2),
+        inset 0 1px 1px rgba(255, 255, 255, 0.4);
+      background: rgba(255, 255, 255, 0.12);
+      border-color: rgba(255, 255, 255, 0.4);
+    }
+    
+    .feature-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      display: block;
+    }
+    
+    .feature-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: white;
+      margin: 0 0 0.5rem 0;
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    }
+    
+    .feature-description {
+      font-size: 1rem;
+      color: rgba(255, 255, 255, 0.9);
+      line-height: 1.6;
+      margin: 0;
+      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+    }
+    
+    .cta-section {
+      display: flex;
+      gap: 1.5rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    
+    .cta-button {
+      padding: 1.25rem 3rem;
+      font-size: 1.1rem;
+      font-weight: 600;
+      border: none;
+      border-radius: 1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: inline-block;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .cta-primary {
+      background: rgba(255, 255, 255, 0.95);
+      color: #764ba2;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    }
+    
+    .cta-primary:hover {
+      background: white;
+      transform: translateY(-3px);
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.25);
+    }
+    
+    .cta-secondary {
+      background: rgba(255, 255, 255, 0.15);
+      -webkit-backdrop-filter: blur(10px);
+      backdrop-filter: blur(10px);
+      color: white;
+      border: 2px solid rgba(255, 255, 255, 0.4);
+    }
+    
+    .cta-secondary:hover {
+      background: rgba(255, 255, 255, 0.25);
+      transform: translateY(-3px);
+      border-color: rgba(255, 255, 255, 0.6);
+    }
+    
+    @media (max-width: 768px) {
+      h1 {
+        padding: 2rem 2rem;
+      }
+      
+      .features-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    .examples-section {
+      margin-top: 4rem;
+      width: 100%;
+    }
+    
+    .section-title {
+      text-align: center;
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 700;
+      color: white;
+      margin-bottom: 2rem;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    }
+    
+    .examples-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 2rem;
+      margin-bottom: 3rem;
+    }
+    
+    .code-example {
+      background: rgba(20, 20, 40, 0.6);
+      -webkit-backdrop-filter: blur(15px);
+      backdrop-filter: blur(15px);
+      border-radius: 1.5rem;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+    
+    .code-example:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+      border-color: rgba(255, 255, 255, 0.3);
+    }
+    
+    .code-header {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 1rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .code-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: white;
+      margin: 0;
+    }
+    
+    .code-lang {
+      font-size: 0.85rem;
+      padding: 0.3rem 0.8rem;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 0.5rem;
+      color: rgba(255, 255, 255, 0.8);
+      font-family: 'Courier New', monospace;
+    }
+    
+    .code-content {
+      padding: 1.5rem;
+      overflow-x: auto;
+    }
+    
+    .code-block {
+      font-family: 'Courier New', Consolas, Monaco, monospace;
+      font-size: 0.9rem;
+      line-height: 1.6;
+      color: #e0e0e0;
+      margin: 0;
+      white-space: pre;
+    }
+    
+    .code-comment {
+      color: #7c8fa3;
+    }
+    
+    .code-keyword {
+      color: #ff79c6;
+    }
+    
+    .code-string {
+      color: #50fa7b;
+    }
+    
+    .code-function {
+      color: #8be9fd;
+    }
+    
+    .code-number {
+      color: #bd93f9;
+    }
+    
+    .code-property {
+      color: #f1fa8c;
+    }
+    
+    .code-description {
+      padding: 1rem 1.5rem;
+      background: rgba(255, 255, 255, 0.03);
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      color: rgba(255, 255, 255, 0.9);
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+    
+    @media (max-width: 768px) {
+      .examples-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .code-block {
+        font-size: 0.8rem;
+      }
+    }
+    
+    .creator-section {
+      margin-top: 4rem;
+      text-align: center;
+      padding: 3rem 2rem;
+      background: rgba(20, 20, 40, 0.4);
+      -webkit-backdrop-filter: blur(15px);
+      backdrop-filter: blur(15px);
+      border-radius: 2rem;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .creator-label {
+      font-size: 0.9rem;
+      color: rgba(255, 255, 255, 0.6);
+      margin-bottom: 1rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+    
+    .creator-name {
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      font-weight: 800;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(
+        45deg,
+        #ff6b6b,
+        #4ecdc4,
+        #45b7d1,
+        #96ceb4,
+        #ffeaa7,
+        #ff6b6b
+      );
+      background-size: 300% 300%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: rainbowFlow 6s ease infinite, textGlow 2s ease-in-out infinite;
+      filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.3));
+      letter-spacing: 0.05em;
+      position: relative;
+      display: inline-block;
+    }
+    
+    @keyframes rainbowFlow {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+    
+    @keyframes textGlow {
+      0%, 100% { 
+        filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.3));
+        transform: scale(1);
+      }
+      50% { 
+        filter: drop-shadow(0 0 30px rgba(255, 255, 255, 0.5));
+        transform: scale(1.02);
+      }
+    }
+    
+    .creator-title {
+      font-size: 1.2rem;
+      color: rgba(255, 255, 255, 0.8);
+      margin-top: 1rem;
+      font-weight: 300;
+      letter-spacing: 0.1em;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Web Development</h1>
+    <p class="subtitle">Learn modern web development with hands-on examples</p>
+    
+    <div class="features-grid" id="features">
+      <div class="feature-card">
+        <span class="feature-icon">🎨</span>
+        <h3 class="feature-title">CSS Mastery</h3>
+        <p class="feature-description">Learn advanced CSS techniques including animations, glassmorphism, and responsive design</p>
+      </div>
+      
+      <div class="feature-card">
+        <span class="feature-icon">⚡</span>
+        <h3 class="feature-title">JavaScript Power</h3>
+        <p class="feature-description">Build interactive experiences with modern JavaScript, DOM manipulation, and APIs</p>
+      </div>
+      
+      <div class="feature-card">
+        <span class="feature-icon">🚀</span>
+        <h3 class="feature-title">Performance</h3>
+        <p class="feature-description">Optimize your websites for speed, accessibility, and user experience</p>
+      </div>
+      
+      <div class="feature-card">
+        <span class="feature-icon">📱</span>
+        <h3 class="feature-title">Responsive Design</h3>
+        <p class="feature-description">Create beautiful layouts that work perfectly on any device or screen size</p>
+      </div>
+      
+      <div class="feature-card">
+        <span class="feature-icon">🛠️</span>
+        <h3 class="feature-title">Dev Tools</h3>
+        <p class="feature-description">Master browser DevTools, Git, and modern development workflows</p>
+      </div>
+      
+      <div class="feature-card">
+        <span class="feature-icon">🌐</span>
+        <h3 class="feature-title">Web Standards</h3>
+        <p class="feature-description">Follow best practices with semantic HTML, accessibility, and SEO</p>
+      </div>
+    </div>
+    
+    <div class="cta-section">
+      <a href="#features" class="cta-button cta-primary" style="text-align: center;">Get Started</a>
+      <a href="#code-examples" class="cta-button cta-secondary" style="text-align: center;">View Examples</a>
+    </div>
+    
+    <div class="examples-section" id="code-examples">
+      <h2 class="section-title">Code Examples</h2>
+      
+      <div class="examples-grid">
+        <div class="code-example">
+          <div class="code-header">
+            <h3 class="code-title">CSS Glassmorphism</h3>
+            <span class="code-lang">CSS</span>
+          </div>
+          <div class="code-content">
+            <pre class="code-block"><span class="code-comment">/* Create a glass effect */</span>
+<span class="code-keyword">.</span><span class="code-function">glass-card</span> {
+  <span class="code-property">background</span>: <span class="code-function">rgba</span>(<span class="code-number">255, 255, 255, 0.1</span>);
+  <span class="code-property">backdrop-filter</span>: <span class="code-function">blur</span>(<span class="code-number">20px</span>);
+  <span class="code-property">border-radius</span>: <span class="code-number">1rem</span>;
+  <span class="code-property">border</span>: <span class="code-number">1px</span> solid <span class="code-function">rgba</span>(<span class="code-number">255, 255, 255, 0.2</span>);
+  <span class="code-property">box-shadow</span>: <span class="code-number">0 8px 32px 0</span> <span class="code-function">rgba</span>(<span class="code-number">0, 0, 0, 0.1</span>);
+}</pre>
+          </div>
+          <div class="code-description">
+            The glassmorphism effect combines transparency, blur, and subtle borders to create a frosted glass appearance.
+          </div>
+        </div>
+        
+        <div class="code-example">
+          <div class="code-header">
+            <h3 class="code-title">CSS Animation</h3>
+            <span class="code-lang">CSS</span>
+          </div>
+          <div class="code-content">
+            <pre class="code-block"><span class="code-comment">/* Smooth gradient animation */</span>
+<span class="code-keyword">@keyframes</span> <span class="code-function">gradient</span> {
+  <span class="code-number">0%</span> { <span class="code-property">background-position</span>: <span class="code-number">0% 50%</span>; }
+  <span class="code-number">50%</span> { <span class="code-property">background-position</span>: <span class="code-number">100% 50%</span>; }
+  <span class="code-number">100%</span> { <span class="code-property">background-position</span>: <span class="code-number">0% 50%</span>; }
+}
+
+<span class="code-keyword">.</span><span class="code-function">animated-bg</span> {
+  <span class="code-property">animation</span>: <span class="code-function">gradient</span> <span class="code-number">15s</span> ease infinite;
+}</pre>
+          </div>
+          <div class="code-description">
+            CSS keyframes enable smooth animations. This creates a flowing gradient background that loops infinitely.
+          </div>
+        </div>
+        
+        <div class="code-example">
+          <div class="code-header">
+            <h3 class="code-title">JavaScript DOM</h3>
+            <span class="code-lang">JS</span>
+          </div>
+          <div class="code-content">
+            <pre class="code-block"><span class="code-comment">// Select and modify elements</span>
+<span class="code-keyword">const</span> card = document<span class="code-keyword">.</span><span class="code-function">querySelector</span>(<span class="code-string">'.card'</span>);
+
+card<span class="code-keyword">.</span><span class="code-function">addEventListener</span>(<span class="code-string">'click'</span>, () => {
+  card.classList<span class="code-keyword">.</span><span class="code-function">toggle</span>(<span class="code-string">'active'</span>);
+  card.style<span class="code-keyword">.</span>transform = <span class="code-string">'scale(1.1)'</span>;
+});</pre>
+          </div>
+          <div class="code-description">
+            JavaScript brings interactivity to your pages. Use DOM manipulation to respond to user actions and update content dynamically.
+          </div>
+        </div>
+        
+        <div class="code-example">
+          <div class="code-header">
+            <h3 class="code-title">Responsive Layout</h3>
+            <span class="code-lang">CSS</span>
+          </div>
+          <div class="code-content">
+            <pre class="code-block"><span class="code-comment">/* Mobile-first grid system */</span>
+<span class="code-keyword">.</span><span class="code-function">grid</span> {
+  <span class="code-property">display</span>: grid;
+  <span class="code-property">grid-template-columns</span>: <span class="code-number">1fr</span>;
+  <span class="code-property">gap</span>: <span class="code-number">2rem</span>;
+}
+
+<span class="code-keyword">@media</span> (<span class="code-property">min-width</span>: <span class="code-number">768px</span>) {
+  <span class="code-keyword">.</span><span class="code-function">grid</span> {
+    <span class="code-property">grid-template-columns</span>: <span class="code-function">repeat</span>(<span class="code-number">2, 1fr</span>);
+  }
+}</pre>
+          </div>
+          <div class="code-description">
+            CSS Grid and media queries make responsive layouts simple. Start mobile-first, then add breakpoints for larger screens.
+          </div>
+        </div>
+        
+        <div class="code-example">
+          <div class="code-header">
+            <h3 class="code-title">Fetch API</h3>
+            <span class="code-lang">JS</span>
+          </div>
+          <div class="code-content">
+            <pre class="code-block"><span class="code-comment">// Get data from an API</span>
+<span class="code-keyword">async function</span> <span class="code-function">getData</span>() {
+  <span class="code-keyword">const</span> response = <span class="code-keyword">await</span> <span class="code-function">fetch</span>(<span class="code-string">'/api/data'</span>);
+  <span class="code-keyword">const</span> data = <span class="code-keyword">await</span> response<span class="code-keyword">.</span><span class="code-function">json</span>();
+  
+  console<span class="code-keyword">.</span><span class="code-function">log</span>(data);
+  <span class="code-keyword">return</span> data;
+}</pre>
+          </div>
+          <div class="code-description">
+            The Fetch API provides a modern way to make HTTP requests. Use async/await for clean, readable asynchronous code.
+          </div>
+        </div>
+        
+        <div class="code-example">
+          <div class="code-header">
+            <h3 class="code-title">CSS Variables</h3>
+            <span class="code-lang">CSS</span>
+          </div>
+          <div class="code-content">
+            <pre class="code-block"><span class="code-comment">/* Define reusable values */</span>
+<span class="code-keyword">:root</span> {
+  <span class="code-property">--primary</span>: <span class="code-number">#667eea</span>;
+  <span class="code-property">--spacing</span>: <span class="code-number">2rem</span>;
+  <span class="code-property">--radius</span>: <span class="code-number">1rem</span>;
+}
+
+<span class="code-keyword">.</span><span class="code-function">button</span> {
+  <span class="code-property">background</span>: <span class="code-function">var</span>(--primary);
+  <span class="code-property">padding</span>: <span class="code-function">var</span>(--spacing);
+  <span class="code-property">border-radius</span>: <span class="code-function">var</span>(--radius);
+}</pre>
+          </div>
+          <div class="code-description">
+            CSS custom properties make your stylesheets maintainable. Define values once and reuse them throughout your project.
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="creator-section">
+      <p class="creator-label">Created By</p>
+      <h2 class="creator-name">Brian Woodson</h2>
+      <p class="creator-title">Web Developer & Educator</p>
+    </div>
+    
+    <div class="examples-section" style="margin-top: 4rem;">
+      <h2 class="section-title">How the Creator Effect Works</h2>
+      
+      <div class="examples-grid">
+        <div class="code-example">
+          <div class="code-header">
+            <h3 class="code-title">Gradient Text Effect</h3>
+            <span class="code-lang">CSS</span>
+          </div>
+          <div class="code-content">
+            <pre class="code-block"><span class="code-comment">/* Animated rainbow gradient text */</span>
+<span class="code-keyword">.</span><span class="code-function">creator-name</span> {
+  <span class="code-property">background</span>: <span class="code-function">linear-gradient</span>(
+    <span class="code-number">45deg</span>,
+    <span class="code-number">#ff6b6b, #4ecdc4, #45b7d1,
+    #96ceb4, #ffeaa7, #ff6b6b</span>
+  );
+  <span class="code-property">background-size</span>: <span class="code-number">300% 300%</span>;
+  <span class="code-property">-webkit-background-clip</span>: text;
+  <span class="code-property">-webkit-text-fill-color</span>: transparent;
+  <span class="code-property">animation</span>: <span class="code-function">rainbowFlow</span> <span class="code-number">6s</span> ease infinite;
+}</pre>
+          </div>
+          <div class="code-description">
+            Uses background-clip to apply an animated gradient to text. The gradient shifts position to create a flowing rainbow effect.
+          </div>
+        </div>
+        
+        <div class="code-example">
+          <div class="code-header">
+            <h3 class="code-title">Pulsing Glow Animation</h3>
+            <span class="code-lang">CSS</span>
+          </div>
+          <div class="code-content">
+            <pre class="code-block"><span class="code-comment">/* Add glowing pulse effect */</span>
+<span class="code-keyword">@keyframes</span> <span class="code-function">textGlow</span> {
+  <span class="code-number">0%, 100%</span> { 
+    <span class="code-property">filter</span>: <span class="code-function">drop-shadow</span>(<span class="code-number">0 0 20px</span> 
+      <span class="code-function">rgba</span>(<span class="code-number">255, 255, 255, 0.3</span>));
+    <span class="code-property">transform</span>: <span class="code-function">scale</span>(<span class="code-number">1</span>);
+  }
+  <span class="code-number">50%</span> { 
+    <span class="code-property">filter</span>: <span class="code-function">drop-shadow</span>(<span class="code-number">0 0 30px</span> 
+      <span class="code-function">rgba</span>(<span class="code-number">255, 255, 255, 0.5</span>));
+    <span class="code-property">transform</span>: <span class="code-function">scale</span>(<span class="code-number">1.02</span>);
+  }
+}</pre>
+          </div>
+          <div class="code-description">
+            Combines drop-shadow filter with scale transform to create a breathing, glowing effect that pulses continuously.
+          </div>
+        </div>
+        
+        <div class="code-example">
+          <div class="code-header">
+            <h3 class="code-title">HTML Structure</h3>
+            <span class="code-lang">HTML</span>
+          </div>
+          <div class="code-content">
+            <pre class="code-block"><span class="code-comment">&lt;!-- Creator section markup --&gt;</span>
+<span class="code-keyword">&lt;div</span> <span class="code-property">class</span>=<span class="code-string">"creator-section"</span><span class="code-keyword">&gt;</span>
+  <span class="code-keyword">&lt;p</span> <span class="code-property">class</span>=<span class="code-string">"creator-label"</span><span class="code-keyword">&gt;</span>Created By<span class="code-keyword">&lt;/p&gt;</span>
+  <span class="code-keyword">&lt;h2</span> <span class="code-property">class</span>=<span class="code-string">"creator-name"</span><span class="code-keyword">&gt;</span>
+    Brian Woodson
+  <span class="code-keyword">&lt;/h2&gt;</span>
+  <span class="code-keyword">&lt;p</span> <span class="code-property">class</span>=<span class="code-string">"creator-title"</span><span class="code-keyword">&gt;</span>
+    Web Developer &amp; Educator
+  <span class="code-keyword">&lt;/p&gt;</span>
+<span class="code-keyword">&lt;/div&gt;</span></pre>
+          </div>
+          <div class="code-description">
+            Simple semantic HTML structure with classes for styling. The h2 element receives the animated gradient treatment.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
