@@ -50,8 +50,8 @@
     </div>
     
     <div class="cta-section">
-      <a href="#features" class="cta-button cta-primary" style="text-align: center;">Get Started</a>
-      <a href="#code-examples" class="cta-button cta-secondary" style="text-align: center;">View Examples</a>
+      <a href="#features" class="cta-button cta-primary">Get Started</a>
+      <a href="#code-examples" class="cta-button cta-secondary">View Examples</a>
     </div>
     
     <div class="examples-section" id="code-examples">
@@ -195,7 +195,7 @@ card<span class="code-keyword">.</span><span class="code-function">addEventListe
       <p class="creator-title">Web Developer & Educator</p>
     </div>
     
-    <div class="examples-section" style="margin-top: 4rem;">
+    <div class="examples-section how-it-works">
       <h2 class="section-title">How the Creator Effect Works</h2>
       
       <div class="examples-grid">
@@ -271,47 +271,63 @@ card<span class="code-keyword">.</span><span class="code-function">addEventListe
         </div>
       </div>
     </div>
-    
-    <div class="contact-section">
-      <h2 class="section-title">Get In Touch</h2>
-      
-      <div class="contact-container" id="contactForm">
-        <div class="contact-header" onclick="toggleContactForm()">
-          <h3>📬 Contact Form</h3>
-          <span class="toggle-icon">▼</span>
+  </div>
+  
+  <!-- Floating Contact Button -->
+  <div class="contact-fab" id="contactFab" onclick="toggleFloatingForm()">
+    <span class="contact-fab-icon">✉️</span>
+  </div>
+  
+  <!-- Floating Contact Form -->
+  <div class="floating-contact-form" id="floatingForm">
+    <div class="floating-form-header">
+      <h3>📬 Get In Touch</h3>
+      <button class="close-button" onclick="toggleFloatingForm()">×</button>
+    </div>
+    <div class="floating-form-body">
+      <form onsubmit="handleFormSubmit(event)">
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" id="name" name="name" placeholder="Your name" required>
         </div>
-        <div class="contact-form-wrapper">
-          <form class="contact-form" onsubmit="handleSubmit(event)">
-            <div class="form-group">
-              <label for="name">Name</label>
-              <input type="text" id="name" name="name" placeholder="Your name" required>
-            </div>
-            <div class="form-group">
-              <label for="email">Email</label>
-              <input type="email" id="email" name="email" placeholder="your.email@example.com" required>
-            </div>
-            <div class="form-group">
-              <label for="message">Message</label>
-              <textarea id="message" name="message" placeholder="Tell me about your project or question..." required></textarea>
-            </div>
-            <button type="submit" class="submit-button">Send Message</button>
-          </form>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" placeholder="your.email@example.com" required>
         </div>
-      </div>
+        <div class="form-group">
+          <label for="subject">Subject</label>
+          <input type="text" id="subject" name="subject" placeholder="What's this about?" required>
+        </div>
+        <div class="form-group">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" placeholder="Tell me more..." required></textarea>
+        </div>
+        <button type="submit" class="submit-button">Send Message</button>
+      </form>
     </div>
   </div>
   
   <script>
-    function toggleContactForm() {
-      const container = document.getElementById('contactForm');
-      container.classList.toggle('expanded');
+    function toggleFloatingForm() {
+      const form = document.getElementById('floatingForm');
+      const fab = document.getElementById('contactFab');
+      
+      form.classList.toggle('active');
+      fab.classList.toggle('active');
     }
     
-    function handleSubmit(event) {
+    function handleFormSubmit(event) {
       event.preventDefault();
-      alert('Thanks for your message! This is a demo form.');
+      
+      // Get form data
+      const formData = new FormData(event.target);
+      const data = Object.fromEntries(formData);
+      
+      alert(`Thanks ${data.name}! Your message has been sent (demo mode).`);
+      
+      // Reset form and close
       event.target.reset();
-      document.getElementById('contactForm').classList.remove('expanded');
+      toggleFloatingForm();
     }
   </script>
 </body>
