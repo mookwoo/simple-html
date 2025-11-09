@@ -308,23 +308,65 @@ card<span class="code-keyword">.</span><span class="code-function">addEventListe
   </div>
   
   <script>
+    // Scroll offset (in pixels) used for JS-based smooth scrolling
+    // Keep this in sync with CSS `scroll-padding-top` for best results
+    const SCROLL_OFFSET = 90; // adjust between 80-100px as desired
+
+    // Intercept anchor clicks and scroll with an offset so section content
+    // isn't flush against the top of the viewport.
+    function scrollToWithOffset(target) {
+      const rect = target.getBoundingClientRect();
+      const absoluteY = rect.top + window.pageYOffset - SCROLL_OFFSET;
+      window.scrollTo({ top: absoluteY, behavior: 'smooth' });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      // Attach handler to all in-page anchor links
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          const href = this.getAttribute('href');
+          if (!href || href === '#') return; // ignore empty/hash-only links
+
+          const id = href.slice(1);
+          const target = document.getElementById(id);
+          if (target) {
+            e.preventDefault();
+            scrollToWithOffset(target);
+            // update the URL hash without jumping
+            history.pushState(null, '', `#${id}`);
+          }
+        });
+      });
+
+      // If page is loaded with a hash, adjust the initial scroll to account for offset
+      if (location.hash) {
+        const id = location.hash.slice(1);
+        const target = document.getElementById(id);
+        if (target) {
+          // Allow browser to jump first, then apply our offset correction
+          setTimeout(() => scrollToWithOffset(target), 50);
+        }
+      }
+    });
+
+    // Floating contact form controls
     function toggleFloatingForm() {
       const form = document.getElementById('floatingForm');
       const fab = document.getElementById('contactFab');
-      
+
       form.classList.toggle('active');
       fab.classList.toggle('active');
     }
-    
+
     function handleFormSubmit(event) {
       event.preventDefault();
-      
+
       // Get form data
       const formData = new FormData(event.target);
       const data = Object.fromEntries(formData);
-      
+
       alert(`Thanks ${data.name}! Your message has been sent (demo mode).`);
-      
+
       // Reset form and close
       event.target.reset();
       toggleFloatingForm();
