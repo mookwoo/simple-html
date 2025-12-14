@@ -5,8 +5,22 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Web Development Learning Hub</title>
   <link rel="stylesheet" href="styles.css">
+  <script>
+    // Initialize theme before page renders to prevent FOUC
+    (function() {
+      const savedTheme = localStorage.getItem('theme');
+      const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const theme = savedTheme || (systemPrefersDark ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', theme);
+    })();
+  </script>
 </head>
 <body>
+  <!-- Theme Toggle Button -->
+  <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark/light mode" title="Toggle theme">
+    <span class="theme-toggle-icon" id="themeIcon">🌙</span>
+  </button>
+
   <div class="container">
     <h1>Web Development</h1>
     <p class="subtitle">Learn modern web development with hands-on examples</p>
@@ -371,6 +385,46 @@ card<span class="code-keyword">.</span><span class="code-function">addEventListe
       event.target.reset();
       toggleFloatingForm();
     }
+
+    // Theme toggle functionality
+    function initTheme() {
+      const themeToggle = document.getElementById('themeToggle');
+      const themeIcon = document.getElementById('themeIcon');
+      
+      // Update icon based on current theme
+      function updateIcon() {
+        const currentTheme = document.documentElement.getAttribute('data-theme');
+        themeIcon.textContent = currentTheme === 'light' ? '☀️' : '🌙';
+      }
+      
+      // Toggle theme
+      function toggleTheme() {
+        const currentTheme = document.documentElement.getAttribute('data-theme');
+        const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+        
+        document.documentElement.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+        updateIcon();
+      }
+      
+      // Set up event listener
+      themeToggle.addEventListener('click', toggleTheme);
+      
+      // Initialize icon
+      updateIcon();
+      
+      // Listen for system theme changes
+      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+        if (!localStorage.getItem('theme')) {
+          const newTheme = e.matches ? 'dark' : 'light';
+          document.documentElement.setAttribute('data-theme', newTheme);
+          updateIcon();
+        }
+      });
+    }
+
+    // Initialize theme toggle when DOM is ready
+    document.addEventListener('DOMContentLoaded', initTheme);
   </script>
 </body>
 </html>

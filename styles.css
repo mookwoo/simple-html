@@ -2,6 +2,77 @@
   box-sizing: border-box;
 }
 
+/* Theme CSS Custom Properties */
+:root {
+  --bg-gradient-1: #667eea;
+  --bg-gradient-2: #764ba2;
+  --bg-gradient-3: #f093fb;
+  --bg-gradient-4: #4facfe;
+  --bg-gradient-5: #00f2fe;
+  --text-primary: white;
+  --text-secondary: rgba(255, 255, 255, 0.9);
+  --text-muted: rgba(255, 255, 255, 0.6);
+  --glass-bg: rgba(255, 255, 255, 0.1);
+  --glass-bg-hover: rgba(255, 255, 255, 0.15);
+  --glass-border: rgba(255, 255, 255, 0.3);
+  --glass-border-hover: rgba(255, 255, 255, 0.5);
+  --card-bg: rgba(255, 255, 255, 0.08);
+  --card-bg-hover: rgba(255, 255, 255, 0.12);
+  --code-bg: rgba(20, 20, 40, 0.6);
+  --code-header-bg: rgba(255, 255, 255, 0.05);
+  --code-border: rgba(255, 255, 255, 0.15);
+  --code-text: #e0e0e0;
+  --creator-bg: rgba(20, 20, 40, 0.4);
+  --form-bg: rgba(20, 20, 40, 0.95);
+  --input-bg: rgba(255, 255, 255, 0.08);
+  --input-bg-focus: rgba(255, 255, 255, 0.12);
+  --input-border: rgba(255, 255, 255, 0.15);
+  --input-border-focus: rgba(255, 255, 255, 0.3);
+  --shadow-color: rgba(0, 0, 0, 0.1);
+  --shadow-color-strong: rgba(0, 0, 0, 0.2);
+  --cta-primary-bg: rgba(255, 255, 255, 0.95);
+  --cta-primary-color: #764ba2;
+  --cta-secondary-bg: rgba(255, 255, 255, 0.15);
+  --cta-secondary-border: rgba(255, 255, 255, 0.4);
+  --floating-circle-1: rgba(255, 255, 255, 0.3);
+  --floating-circle-2: rgba(255, 255, 255, 0.2);
+}
+
+[data-theme="light"] {
+  --bg-gradient-1: #a8c0ff;
+  --bg-gradient-2: #d4b8ff;
+  --bg-gradient-3: #ffc8dd;
+  --bg-gradient-4: #bde0fe;
+  --bg-gradient-5: #a2d2ff;
+  --text-primary: #1a1a2e;
+  --text-secondary: rgba(26, 26, 46, 0.85);
+  --text-muted: rgba(26, 26, 46, 0.6);
+  --glass-bg: rgba(255, 255, 255, 0.6);
+  --glass-bg-hover: rgba(255, 255, 255, 0.75);
+  --glass-border: rgba(255, 255, 255, 0.8);
+  --glass-border-hover: rgba(255, 255, 255, 0.95);
+  --card-bg: rgba(255, 255, 255, 0.5);
+  --card-bg-hover: rgba(255, 255, 255, 0.65);
+  --code-bg: rgba(40, 44, 52, 0.9);
+  --code-header-bg: rgba(0, 0, 0, 0.1);
+  --code-border: rgba(0, 0, 0, 0.15);
+  --code-text: #e0e0e0;
+  --creator-bg: rgba(255, 255, 255, 0.5);
+  --form-bg: rgba(255, 255, 255, 0.95);
+  --input-bg: rgba(0, 0, 0, 0.05);
+  --input-bg-focus: rgba(0, 0, 0, 0.08);
+  --input-border: rgba(0, 0, 0, 0.15);
+  --input-border-focus: rgba(0, 0, 0, 0.3);
+  --shadow-color: rgba(0, 0, 0, 0.15);
+  --shadow-color-strong: rgba(0, 0, 0, 0.25);
+  --cta-primary-bg: #764ba2;
+  --cta-primary-color: white;
+  --cta-secondary-bg: rgba(255, 255, 255, 0.7);
+  --cta-secondary-border: rgba(0, 0, 0, 0.2);
+  --floating-circle-1: rgba(255, 255, 255, 0.5);
+  --floating-circle-2: rgba(255, 255, 255, 0.4);
+}
+
 html {
   scroll-behavior: smooth;
   /* Provide breathing room at the top when navigating to in-page anchors */
@@ -18,11 +89,12 @@ body {
   justify-content: center;
   padding: 2rem;
   font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #4facfe 75%, #00f2fe 100%);
+  background: linear-gradient(135deg, var(--bg-gradient-1) 0%, var(--bg-gradient-2) 25%, var(--bg-gradient-3) 50%, var(--bg-gradient-4) 75%, var(--bg-gradient-5) 100%);
   background-size: 400% 400%;
   animation: gradient 15s ease infinite;
   overflow-x: hidden;
   position: relative;
+  transition: background 0.3s ease;
 }
 
 @keyframes gradient {
@@ -36,7 +108,7 @@ body::before {
   position: absolute;
   width: 500px;
   height: 500px;
-  background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
+  background: radial-gradient(circle, var(--floating-circle-1) 0%, transparent 70%);
   border-radius: 50%;
   top: -250px;
   right: -250px;
@@ -48,7 +120,7 @@ body::after {
   position: absolute;
   width: 400px;
   height: 400px;
-  background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 70%);
+  background: radial-gradient(circle, var(--floating-circle-2) 0%, transparent 70%);
   border-radius: 50%;
   bottom: -200px;
   left: -200px;
@@ -77,18 +149,18 @@ h1 {
   text-align: center;
   
   /* Liquid glass effect */
-  background: rgba(255, 255, 255, 0.1);
+  background: var(--glass-bg);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
   backdrop-filter: blur(20px) saturate(180%);
   border-radius: 2rem;
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  border: 1px solid var(--glass-border);
   box-shadow: 
-    0 8px 32px 0 rgba(0, 0, 0, 0.1),
+    0 8px 32px 0 var(--shadow-color),
     inset 0 1px 1px 0 rgba(255, 255, 255, 0.5),
-    0 20px 60px rgba(0, 0, 0, 0.15);
+    0 20px 60px var(--shadow-color-strong);
   
-  color: white;
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  color: var(--text-primary);
+  text-shadow: 0 2px 10px var(--shadow-color-strong);
   
   animation: glassShimmer 3s ease-in-out infinite;
   transition: all 0.3s ease;
@@ -141,25 +213,26 @@ h1::after {
 h1:hover {
   transform: translateY(-5px);
   box-shadow: 
-    0 12px 40px 0 rgba(0, 0, 0, 0.15),
+    0 12px 40px 0 var(--shadow-color-strong),
     inset 0 1px 1px 0 rgba(255, 255, 255, 0.6),
-    0 30px 80px rgba(0, 0, 0, 0.2);
-  background: rgba(255, 255, 255, 0.15);
+    0 30px 80px var(--shadow-color-strong);
+  background: var(--glass-bg-hover);
 }
 
 @keyframes glassShimmer {
-  0%, 100% { border-color: rgba(255, 255, 255, 0.3); }
-  50% { border-color: rgba(255, 255, 255, 0.5); }
+  0%, 100% { border-color: var(--glass-border); }
+  50% { border-color: var(--glass-border-hover); }
 }
 
 .subtitle {
   text-align: center;
   font-size: clamp(1rem, 3vw, 1.5rem);
-  color: white;
+  color: var(--text-primary);
   margin-bottom: 3rem;
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  text-shadow: 0 2px 10px var(--shadow-color-strong);
   font-weight: 300;
   letter-spacing: 0.05em;
+  transition: color 0.3s ease;
 }
 
 .features-grid {
@@ -170,11 +243,11 @@ h1:hover {
 }
 
 .feature-card {
-  background: rgba(255, 255, 255, 0.08);
+  background: var(--card-bg);
   -webkit-backdrop-filter: blur(15px) saturate(180%);
   backdrop-filter: blur(15px) saturate(180%);
   border-radius: 1.5rem;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid var(--glass-border);
   padding: 2rem;
   transition: all 0.3s ease;
   cursor: pointer;
@@ -200,10 +273,10 @@ h1:hover {
 .feature-card:hover {
   transform: translateY(-10px) scale(1.02);
   box-shadow: 
-    0 15px 50px rgba(0, 0, 0, 0.2),
+    0 15px 50px var(--shadow-color-strong),
     inset 0 1px 1px rgba(255, 255, 255, 0.4);
-  background: rgba(255, 255, 255, 0.12);
-  border-color: rgba(255, 255, 255, 0.4);
+  background: var(--card-bg-hover);
+  border-color: var(--glass-border-hover);
 }
 
 .feature-icon {
@@ -215,17 +288,19 @@ h1:hover {
 .feature-title {
   font-size: 1.5rem;
   font-weight: 700;
-  color: white;
+  color: var(--text-primary);
   margin: 0 0 0.5rem 0;
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  text-shadow: 0 2px 8px var(--shadow-color-strong);
+  transition: color 0.3s ease;
 }
 
 .feature-description {
   font-size: 1rem;
-  color: rgba(255, 255, 255, 0.9);
+  color: var(--text-secondary);
   line-height: 1.6;
   margin: 0;
-  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+  text-shadow: 0 1px 4px var(--shadow-color-strong);
+  transition: color 0.3s ease;
 }
 
 .cta-section {
@@ -250,29 +325,31 @@ h1:hover {
 }
 
 .cta-primary {
-  background: rgba(255, 255, 255, 0.95);
-  color: #764ba2;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  background: var(--cta-primary-bg);
+  color: var(--cta-primary-color);
+  box-shadow: 0 8px 25px var(--shadow-color-strong);
+  transition: all 0.3s ease;
 }
 
 .cta-primary:hover {
-  background: white;
+  background: var(--cta-primary-bg);
   transform: translateY(-3px);
-  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 12px 35px var(--shadow-color-strong);
 }
 
 .cta-secondary {
-  background: rgba(255, 255, 255, 0.15);
+  background: var(--cta-secondary-bg);
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
-  color: white;
-  border: 2px solid rgba(255, 255, 255, 0.4);
+  color: var(--text-primary);
+  border: 2px solid var(--cta-secondary-border);
+  transition: all 0.3s ease;
 }
 
 .cta-secondary:hover {
-  background: rgba(255, 255, 255, 0.25);
+  background: var(--card-bg-hover);
   transform: translateY(-3px);
-  border-color: rgba(255, 255, 255, 0.6);
+  border-color: var(--glass-border-hover);
 }
 
 @media (max-width: 768px) {
@@ -294,9 +371,10 @@ h1:hover {
   text-align: center;
   font-size: clamp(2rem, 5vw, 3rem);
   font-weight: 700;
-  color: white;
+  color: var(--text-primary);
   margin-bottom: 2rem;
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  text-shadow: 0 2px 10px var(--shadow-color-strong);
+  transition: color 0.3s ease;
 }
 
 .examples-grid {
@@ -307,34 +385,34 @@ h1:hover {
 }
 
 .code-example {
-  background: rgba(20, 20, 40, 0.6);
+  background: var(--code-bg);
   -webkit-backdrop-filter: blur(15px);
   backdrop-filter: blur(15px);
   border-radius: 1.5rem;
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  border: 1px solid var(--code-border);
   overflow: hidden;
   transition: all 0.3s ease;
 }
 
 .code-example:hover {
   transform: translateY(-5px);
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
-  border-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 15px 40px var(--shadow-color-strong);
+  border-color: var(--glass-border);
 }
 
 .code-header {
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--code-header-bg);
   padding: 1rem 1.5rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid var(--code-border);
 }
 
 .code-title {
   font-size: 1.1rem;
   font-weight: 600;
-  color: white;
+  color: var(--code-text);
   margin: 0;
 }
 
@@ -356,7 +434,7 @@ h1:hover {
   font-family: 'Courier New', Consolas, Monaco, monospace;
   font-size: 0.9rem;
   line-height: 1.6;
-  color: #e0e0e0;
+  color: var(--code-text);
   margin: 0;
   white-space: pre;
 }
@@ -387,9 +465,9 @@ h1:hover {
 
 .code-description {
   padding: 1rem 1.5rem;
-  background: rgba(255, 255, 255, 0.03);
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  color: rgba(255, 255, 255, 0.9);
+  background: var(--code-header-bg);
+  border-top: 1px solid var(--code-border);
+  color: var(--text-secondary);
   font-size: 0.95rem;
   line-height: 1.5;
 }
@@ -408,19 +486,21 @@ h1:hover {
   margin-top: 4rem;
   text-align: center;
   padding: 3rem 2rem;
-  background: rgba(20, 20, 40, 0.4);
+  background: var(--creator-bg);
   -webkit-backdrop-filter: blur(15px);
   backdrop-filter: blur(15px);
   border-radius: 2rem;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--code-border);
+  transition: background 0.3s ease, border-color 0.3s ease;
 }
 
 .creator-label {
   font-size: 0.9rem;
-  color: rgba(255, 255, 255, 0.6);
+  color: var(--text-muted);
   margin-bottom: 1rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
+  transition: color 0.3s ease;
 }
 
 .creator-name {
@@ -466,10 +546,11 @@ h1:hover {
 
 .creator-title {
   font-size: 1.2rem;
-  color: rgba(255, 255, 255, 0.8);
+  color: var(--text-secondary);
   margin-top: 1rem;
   font-weight: 300;
   letter-spacing: 0.1em;
+  transition: color 0.3s ease;
 }
 
 /* Floating Contact Button */
@@ -512,12 +593,12 @@ h1:hover {
   right: 2rem;
   width: 400px;
   max-width: calc(100vw - 4rem);
-  background: rgba(20, 20, 40, 0.95);
+  background: var(--form-bg);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
   backdrop-filter: blur(20px) saturate(180%);
   border-radius: 1.5rem;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 20px 60px var(--shadow-color-strong);
   z-index: 999;
   transform: translateY(calc(100% + 2rem));
   opacity: 0;
@@ -533,7 +614,7 @@ h1:hover {
 
 .floating-form-header {
   padding: 1.5rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid var(--code-border);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -542,14 +623,15 @@ h1:hover {
 .floating-form-header h3 {
   margin: 0;
   font-size: 1.3rem;
-  color: white;
+  color: var(--text-primary);
   font-weight: 700;
+  transition: color 0.3s ease;
 }
 
 .close-button {
   background: none;
   border: none;
-  color: rgba(255, 255, 255, 0.6);
+  color: var(--text-muted);
   font-size: 1.5rem;
   cursor: pointer;
   padding: 0;
@@ -563,8 +645,8 @@ h1:hover {
 }
 
 .close-button:hover {
-  background: rgba(255, 255, 255, 0.1);
-  color: white;
+  background: var(--input-bg);
+  color: var(--text-primary);
 }
 
 .floating-form-body {
@@ -578,17 +660,17 @@ h1:hover {
 }
 
 .floating-form-body::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--input-bg);
   border-radius: 3px;
 }
 
 .floating-form-body::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.2);
+  background: var(--input-border);
   border-radius: 3px;
 }
 
 .floating-form-body::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.3);
+  background: var(--input-border-focus);
 }
 
 .form-group {
@@ -598,19 +680,20 @@ h1:hover {
 .form-group label {
   display: block;
   margin-bottom: 0.5rem;
-  color: rgba(255, 255, 255, 0.9);
+  color: var(--text-secondary);
   font-weight: 600;
   font-size: 0.9rem;
+  transition: color 0.3s ease;
 }
 
 .form-group input,
 .form-group textarea {
   width: 100%;
   padding: 0.75rem 1rem;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: var(--input-bg);
+  border: 1px solid var(--input-border);
   border-radius: 0.75rem;
-  color: white;
+  color: var(--text-primary);
   font-size: 0.95rem;
   font-family: inherit;
   transition: all 0.3s ease;
@@ -618,15 +701,15 @@ h1:hover {
 
 .form-group input::placeholder,
 .form-group textarea::placeholder {
-  color: rgba(255, 255, 255, 0.4);
+  color: var(--text-muted);
 }
 
 .form-group input:focus,
 .form-group textarea:focus {
   outline: none;
-  background: rgba(255, 255, 255, 0.12);
-  border-color: rgba(255, 255, 255, 0.3);
-  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.05);
+  background: var(--input-bg-focus);
+  border-color: var(--input-border-focus);
+  box-shadow: 0 0 0 3px var(--input-bg);
 }
 
 .form-group textarea {
@@ -673,5 +756,73 @@ h1:hover {
   
   .floating-contact-form.active {
     transform: translateY(-70px);
+  }
+}
+
+/* Theme Toggle Button */
+.theme-toggle {
+  position: fixed;
+  top: 1.5rem;
+  right: 1.5rem;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  z-index: 1001;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--glass-bg);
+  -webkit-backdrop-filter: blur(15px);
+  backdrop-filter: blur(15px);
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 4px 15px var(--shadow-color);
+  transition: all 0.3s ease;
+}
+
+.theme-toggle:hover {
+  transform: scale(1.1);
+  background: var(--glass-bg-hover);
+  box-shadow: 0 8px 25px var(--shadow-color-strong);
+}
+
+.theme-toggle:active {
+  transform: scale(0.95);
+}
+
+.theme-toggle-icon {
+  font-size: 1.5rem;
+  transition: transform 0.3s ease;
+}
+
+.theme-toggle:hover .theme-toggle-icon {
+  transform: rotate(15deg);
+}
+
+/* Light theme icon rotation */
+[data-theme="light"] .theme-toggle-icon {
+  transform: rotate(0deg);
+}
+
+[data-theme="light"] .theme-toggle:hover .theme-toggle-icon {
+  transform: rotate(-15deg);
+}
+
+/* Light theme specific adjustments for code description */
+[data-theme="light"] .code-description {
+  color: var(--text-secondary);
+}
+
+@media (max-width: 768px) {
+  .theme-toggle {
+    top: 1rem;
+    right: 1rem;
+    width: 45px;
+    height: 45px;
+  }
+  
+  .theme-toggle-icon {
+    font-size: 1.3rem;
   }
 }
