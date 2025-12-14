@@ -811,26 +811,7 @@ h1:hover {
 
 /* Light theme specific adjustments for code description */
 [data-theme="light"] .code-description {
-  color: var(--code-text);
-}
-
-/* Light theme form text color */
-[data-theme="light"] .floating-form-header h3 {
-  color: #1a1a2e;
-}
-
-[data-theme="light"] .form-group label {
-  color: #1a1a2e;
-}
-
-[data-theme="light"] .form-group input,
-[data-theme="light"] .form-group textarea {
-  color: #1a1a2e;
-}
-
-[data-theme="light"] .form-group input::placeholder,
-[data-theme="light"] .form-group textarea::placeholder {
-  color: rgba(26, 26, 46, 0.5);
+  color: var(--text-secondary);
 }
 
 @media (max-width: 768px) {
